@@ -2,8 +2,9 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { catchError } from "rxjs/operators";
+import { environment } from 'src/environments/environment';
 
-const API_HOST = "http://localhost:8080/spring-api/";
+const API_HOST = environment.api_url;
 @Injectable({
   providedIn: "root",
 })
@@ -20,17 +21,19 @@ export class ApiService {
       })
       .pipe(
         catchError((e) => {
-          f("error happens when sending request to https://rextester.com/rundotnet/api " + e);
+          console.log(e);
+          f(null, "error happens when sending request to https://rextester.com/rundotnet/api " + e);
           return of(null);
         })
       )
       .subscribe((r) => {
         if (r != null) {
-          solution.success = true;//r.Errors == null || r.Errors.trim().length == 0;
+          console.log(r);
+          solution.success = r.Errors == null || r.Errors.trim().length == 0;
           this.httpService
             .post<Solution>(API_HOST + "solution", solution)
             .subscribe((s) => {
-              f(s);
+              f(s, r.Errors);
             });
         }
       });

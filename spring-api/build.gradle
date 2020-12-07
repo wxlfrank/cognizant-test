@@ -27,6 +27,8 @@ task runJava(type:JavaExec) {
 	}
 }
 
+bootRun.dependsOn processResources
+
 bootWar {
     baseName = 'spring-api'
     archiveName = 'spring-api.war'

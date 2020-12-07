@@ -54,7 +54,6 @@ public class SolutionController {
             }
             tasks.add(s.getTask().getName());
         });
-        int size = result.size() > 3 ? 3 : result.size();
         List<Top3Report> report = new ArrayList<Top3Report>();
         Iterator<Entry<String, List<String>>> iterator = result.entrySet().stream().sorted(comparator).iterator();
         int count = 0;

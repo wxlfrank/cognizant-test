@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 
@@ -18,6 +19,7 @@ public class Solution extends IDObject {
     private String name;
     @ManyToOne
     private Task task;
+    @Lob
     private String code;
     @Column(nullable = false, updatable = false)
     private Timestamp created;

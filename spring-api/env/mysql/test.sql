@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `solution`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `solution` (
   `id` binary(16) NOT NULL,
-  `code` varchar(255) DEFAULT NULL,
+  `code` longtext,
   `created` datetime NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `success` bit(1) NOT NULL,
@@ -32,12 +32,17 @@ CREATE TABLE `solution` (
   PRIMARY KEY (`id`),
   KEY `FK9uimtg8v75rnkoi9p4ltxgdwk` (`task_name`),
   CONSTRAINT `FK9uimtg8v75rnkoi9p4ltxgdwk` FOREIGN KEY (`task_name`) REFERENCES `task` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `solution`
 --
+
+LOCK TABLES `solution` WRITE;
+/*!40000 ALTER TABLE `solution` DISABLE KEYS */;
+/*!40000 ALTER TABLE `solution` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `task`
@@ -52,7 +57,7 @@ CREATE TABLE `task` (
   `inputp` varchar(255) DEFAULT NULL,
   `outputp` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,4 +79,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-07  0:29:31
+-- Dump completed on 2020-12-07 21:54:28

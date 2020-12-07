@@ -1,7 +1,7 @@
 version: "3.8"
 services:
     mysql:
-        image: mysql:5.7
+        build: ../spring-api/env/mysql
         environment:
             MYSQL_DATABASE: test
             MYSQL_USER: test
@@ -11,7 +11,7 @@ services:
             - 3306:3306
         volumes:
             - type: bind
-              source: ../spring-api/local/mysql/
+              source: ../spring-api/env/local/mysql/
               target: /var/lib/mysql
     tomcat:
         build: ./tomcat
