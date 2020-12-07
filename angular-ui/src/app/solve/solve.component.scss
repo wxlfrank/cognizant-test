@@ -1,0 +1,16 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+.container {
+  input,
+  select,
+  textarea {
+    border-color: theme-color("primary") !important;
+    border-radius: 0px !important;
+  }
+  textarea {
+    height: 200px;
+  }
+
+  p#alterEgo {
+    padding: 0 !important;
+  }
+}

@@ -1,0 +1,75 @@
+<div class="container">
+  <form (ngSubmit)="onSubmit(caseForm)" #caseForm="ngForm">
+    <div class="form-group row">
+      <label for="name" class="col-sm-2 col-form-label">NAME</label>
+      <input
+        type="text"
+        class="form-control col-sm-5"
+        id="name"
+        required
+        [(ngModel)]="case.name"
+        name="name"
+        #name="ngModel"
+        primary
+      />
+      <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+        Name is required
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="task" class="col-sm-2 col-form-label">SELECT TASK</label>
+      <select
+        class="form-control col-sm-5"
+        id="task"
+        required
+        name="task"
+        [(ngModel)]="case.task"
+        #task="ngModel"
+      >
+        <option *ngFor="let t of tasks" [ngValue]="t">
+          {{ t.name }}
+        </option>
+      </select>
+      <div [hidden]="task.valid || task.pristine" class="alert alert-danger">
+        task is required
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="alterEgo" class="col-sm-2 col-form-label">DESCRIPTION</label>
+      <p id="alterEgo" name="alterEgo" class="col-sm-5">
+        {{ case.task?.description }}
+      </p>
+    </div>
+
+    <div class="form-group row">
+      <label for="code" class="col-sm-2 col-form-label">SOLUTION CODE</label>
+      <textarea
+        class="form-control col-sm-5"
+        id="code"
+        required
+        [(ngModel)]="case.code"
+        name="code"
+        #code="ngModel"
+      >
+      </textarea>
+      <div [hidden]="code.valid || code.pristine" class="alert alert-danger">
+        case is required
+      </div>
+    </div>
+    <div class="form-group row" *ngIf="error != null">
+      <label for="code" class="col-sm-2 col-form-label text-danger">ERROR</label>
+      <p class="text-danger">{{ error }}</p>
+    </div>
+    <div class="form-group row">
+      <button
+        type="submit"
+        class="btn btn-secondary"
+        [disabled]="!caseForm.form.valid || !submit"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,16 @@
+FROM mysql:5.7
+
+# ARG USER=
+# ARG PASSWORD=
+# ARG DATABASE=
+# ENV MYSQL_USER=${USER}
+# ENV MYSQL_DATABASE=${DATABASE}
+# ENV MYSQL_PASSWORD=${PASSWORD}
+# ENV MYSQL_ROOT_PASSWORD=${PASSWORD}
+
+
+COPY my.cnf /etc/mysql/my.cnf
+COPY test.sql /docker-entrypoint-initdb.d/
+
+EXPOSE 3306
+CMD ["mysqld"]

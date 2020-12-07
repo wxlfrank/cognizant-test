@@ -1,0 +1,66 @@
+plugins {
+	id 'org.springframework.boot' version '2.3.4.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id 'java'
+	id 'war'
+	id 'eclipse'
+	id 'net.saliman.properties' version '1.5.1'
+}
+
+group = 'org.test'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+task runJava(type:JavaExec) {
+	if(project.hasProperty('mainClass')){
+		main = project.property('mainClass')
+		classpath = sourceSets.main.runtimeClasspath
+		if (project.hasProperty("appArgs")) {
+			args Eval.me(appArgs)
+		}
+	}
+}
+
+bootWar {
+    baseName = 'spring-api'
+    archiveName = 'spring-api.war'
+}
+
+processResources {
+	from ('src/main/java') {
+		include '**/*.yaml'
+	}
+	eachFile { details -> 
+        if (project.properties.filterTokens.size() > 0 && details.name.equals('application.yaml')) { // or whatever pattern/criteria is appropriate
+			expand(project.properties.filterTokens)	
+        }
+    }
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot-starter', version: '3.0.3'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'mysql:mysql-connector-java'
+	annotationProcessor 'org.projectlombok:lombok'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+}
+
+test {
+	useJUnitPlatform()
+}

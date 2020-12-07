@@ -1,0 +1,35 @@
+version: "3.8"
+services:
+    mysql:
+        image: mysql:5.7
+        environment:
+            MYSQL_DATABASE: test
+            MYSQL_USER: test
+            MYSQL_PASSWORD: test
+            MYSQL_ROOT_PASSWORD: test
+        ports:
+            - 3306:3306
+        volumes:
+            - type: bind
+              source: ../spring-api/local/mysql/
+              target: /var/lib/mysql
+    tomcat:
+        build: ./tomcat
+        ports:
+            - "8009:8009"
+        volumes:
+            - type: bind
+              source: ../spring-api/build/libs/
+              target: /usr/local/tomcat/webapps/
+        depends_on:
+            - mysql
+    apache2:
+        build: ./httpd
+        ports:
+            - "80:80"
+        volumes:
+            - type: bind
+              source: ../angular-ui/dist
+              target: /usr/local/apache2/htdocs
+        depends_on:
+            - tomcat

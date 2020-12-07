@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <table class="table col-sm-7">
+      <thead class="bg-primary text-light">
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">SUCCESS SOLUTIONS</th>
+          <th scope="col">TASKS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of top3 | async; index as i">
+          <td>{{r.name}}</td>
+          <td>{{r.count}}</td>
+          <td>{{r.tasks}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
